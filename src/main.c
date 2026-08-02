@@ -19,15 +19,6 @@
 #include "nuklear.h"
 #include "nuklear_glfw_gl3.h"
 
-void drawPoint(void)
-{
-    glPointSize(5.0f);
-    glBegin(GL_POINTS);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(0.0f, 0.0f);
-    glEnd();
-}
-
 int main()
 {
     // Initialize GLFW and request a context that supports legacy OpenGL calls.
