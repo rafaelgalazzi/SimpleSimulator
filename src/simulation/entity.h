@@ -1,5 +1,5 @@
-#ifndef DRAWN_MODULE
-#define DRAWN_MODULE
+#ifndef ENTITY_H
+#define ENTITY_H
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
@@ -13,9 +13,5 @@ typedef struct
     float diameter;
     float color[3];
 } Point;
-
-void drawnPoint(Point *point);
-
-void drawnFrame();
 
 #endif

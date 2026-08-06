@@ -19,6 +19,11 @@
 #include "nuklear.h"
 #include "nuklear_glfw_gl3.h"
 
+#include <stdlib.h>
+#include "./simulation/physics.h"
+#include "./simulation/drawn.h"
+#include "./simulation/entity.h"
+
 int main()
 {
     // Initialize GLFW and request a context that supports legacy OpenGL calls.
@@ -53,6 +58,16 @@ int main()
     // Simulation variables
     float sim_speed = 1.0f;
     int is_running = 0;
+
+    // Setup particles
+    Point simplePoint;
+    simplePoint.color[0] = 1.0f;
+    simplePoint.color[1] = 1.0f;
+    simplePoint.color[2] = 1.0f;
+    simplePoint.diameter = 2.0f;
+    simplePoint.mass = 2.0f;
+    simplePoint.x = 0;
+    simplePoint.y = 0;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -90,10 +105,10 @@ int main()
 
         if (is_running)
         {
-            // Execute physics tick functions here using 'sim_speed'.
+            applyPhysics(&simplePoint);
         }
         // Draw simulation geometry here (3D cubes, particle grids, fields, etc.).
-        drawPoint();
+        drawnFrame(&simplePoint);
 
         /* --- 5. RENDER THE GUI OVERLAY --- */
         glDisable(GL_DEPTH_TEST); // Keep the UI above the 3D scene.

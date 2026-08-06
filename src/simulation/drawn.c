@@ -1,4 +1,4 @@
-#include "./drawn_module.h"
+#include "drawn.h"
 
 void drawnPoint(Point *point)
 {
@@ -11,7 +11,7 @@ void drawnPoint(Point *point)
     glEnd();
 }
 
-void drawnFrame()
+void drawnFrame(Point *point)
 {
-    
+    drawnPoint(point);
 }
