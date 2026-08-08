@@ -32,3 +32,5 @@ Each operating system produces its own native executable. A binary built on one
 operating system cannot run natively on another operating system.
 
 #
+
+Run with "& .\build\Debug\simulator.exe"

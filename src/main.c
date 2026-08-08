@@ -11,7 +11,6 @@
 
 // Let GLAD provide OpenGL declarations on every supported platform.
 #define GLFW_INCLUDE_NONE
-#define GLAD_GL_IMPLEMENTATION
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
