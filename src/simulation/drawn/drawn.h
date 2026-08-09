@@ -1,7 +1,7 @@
 #ifndef DRAWN_H
 #define DRAWN_H
 
-#include "entity.h"
+#include "../entity/entity.h"
 
 void setup2D(int *width, int *height);
 

@@ -1,5 +1,5 @@
 #include "drawn.h"
-#include "config.h"
+#include "../config/config.h"
 
 int screen_center_x = SCREEN_WIDTH / 2;
 int screen_center_y = SCREEN_HEIGHT / 2;

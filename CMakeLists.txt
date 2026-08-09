@@ -8,10 +8,10 @@ find_package(OpenGL REQUIRED)
 
 add_executable(simulator 
     src/main.c 
-    src/simulation/drawn.c
-    src/simulation/physics.c
-    src/simulation/fps_timer.c
-    src/simulation/entity.c
+    src/simulation/drawn/drawn.c
+    src/simulation/physics/physics.c
+    src/simulation/fps_timer/fps_timer.c
+    src/simulation/entity/entity.c
 )
 
 target_include_directories(simulator PRIVATE 

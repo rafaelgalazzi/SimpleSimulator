@@ -1,7 +1,7 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
-#include "entity.h"
+#include "../entity/entity.h"
 
 void applyPhysics(Point *points);
 

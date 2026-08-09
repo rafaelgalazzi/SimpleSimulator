@@ -19,11 +19,11 @@
 #include "nuklear_glfw_gl3.h"
 
 #include <stdlib.h>
-#include "./simulation/physics.h"
-#include "./simulation/drawn.h"
-#include "./simulation/entity.h"
-#include "./simulation/fps_timer.h"
-#include "./simulation/config.h"
+#include "./simulation/physics/physics.h"
+#include "./simulation/drawn/drawn.h"
+#include "./simulation/entity/entity.h"
+#include "./simulation/fps_timer/fps_timer.h"
+#include "./simulation/config/config.h"
 
 int main()
 {
