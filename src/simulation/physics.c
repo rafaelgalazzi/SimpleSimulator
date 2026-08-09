@@ -13,4 +13,5 @@ void applyPhysics(Point *points)
     }
 
     points->x += points->vx;
+    points->y -= points->vy; // Subtract because the increasing in Y goes to the bottom
 }

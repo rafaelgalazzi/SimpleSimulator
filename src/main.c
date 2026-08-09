@@ -23,6 +23,7 @@
 #include "./simulation/drawn.h"
 #include "./simulation/entity.h"
 #include "./simulation/fps_timer.h"
+#include "./simulation/config.h"
 
 int main()
 {
@@ -30,18 +31,13 @@ int main()
     if (!glfwInit())
         return 1;
 
-    // ScreenSize
-    int screen_width = 1280;
-    int screen_height = 720;
-
     // Fps limit control
-    const double target_fps = 60.0;
-    const double target_frame_time = 1.0 / target_fps;
+    const double target_frame_time = 1.0 / TARGET_FPS;
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-    GLFWwindow *window = glfwCreateWindow(screen_width, screen_height, "Simulation Panel", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Simulation Panel", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -69,7 +65,7 @@ int main()
 
     // Setup particles
     float redColor[3] = {1.0f, 0, 0};
-    Point simplePoint = create_point(0, 0, 1.0f, 0, 2.0f, 10.0f, redColor);
+    Point simplePoint = create_point(0, 0, 1.0f, 1.0f, 2.0f, 10.0f, redColor);
 
     while (!glfwWindowShouldClose(window))
     {

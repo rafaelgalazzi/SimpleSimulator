@@ -1,4 +1,8 @@
 #include "drawn.h"
+#include "config.h"
+
+int screen_center_x = SCREEN_WIDTH / 2;
+int screen_center_y = SCREEN_HEIGHT / 2;
 
 void setup2D(int *width, int *height)
 {
@@ -15,13 +19,13 @@ void setup2D(int *width, int *height)
 
 void drawnPoint(Point *point)
 {
-    
+
     glEnable(GL_POINT_SMOOTH);
     glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
     glPointSize(point->diameter);
     glBegin(GL_POINTS);
     glColor3f(point->color[0], point->color[1], point->color[2]);
-    glVertex2f(point->x, point->y);
+    glVertex2f(point->x + screen_center_x, point->y + screen_center_y);
     glEnd();
 }
 
