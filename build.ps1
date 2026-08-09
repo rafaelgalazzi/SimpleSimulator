@@ -6,4 +6,4 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 cmake --build build --config Debug
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-& .\build\Debug\SimulationApp.exe
+& .\build\Debug\simulator.exe

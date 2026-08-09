@@ -3,6 +3,8 @@
 
 #include "entity.h"
 
+void setup2D(int *width, int *height);
+
 void drawnPoint(Point *point);
 
 void drawnFrame(Point *points);

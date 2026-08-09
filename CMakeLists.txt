@@ -4,13 +4,14 @@ project(SimpleSimulator C)
 
 # Use the native OpenGL implementation on Windows, Linux, and macOS.
 find_package(OpenGL REQUIRED)
-
 # Build the application with the local Nuklear headers and GLFW's GLAD loader.
 
 add_executable(simulator 
     src/main.c 
     src/simulation/drawn.c
     src/simulation/physics.c
+    src/simulation/fps_timer.c
+    src/simulation/entity.c
 )
 
 target_include_directories(simulator PRIVATE 

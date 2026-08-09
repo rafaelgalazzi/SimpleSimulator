@@ -22,6 +22,7 @@
 #include "./simulation/physics.h"
 #include "./simulation/drawn.h"
 #include "./simulation/entity.h"
+#include "./simulation/fps_timer.h"
 
 int main()
 {
@@ -29,10 +30,18 @@ int main()
     if (!glfwInit())
         return 1;
 
+    // ScreenSize
+    int screen_width = 1280;
+    int screen_height = 720;
+
+    // Fps limit control
+    const double target_fps = 60.0;
+    const double target_frame_time = 1.0 / target_fps;
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-    GLFWwindow *window = glfwCreateWindow(1280, 720, "Simulation Panel", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(screen_width, screen_height, "Simulation Panel", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -59,17 +68,13 @@ int main()
     int is_running = 0;
 
     // Setup particles
-    Point simplePoint;
-    simplePoint.color[0] = 1.0f;
-    simplePoint.color[1] = 1.0f;
-    simplePoint.color[2] = 1.0f;
-    simplePoint.diameter = 2.0f;
-    simplePoint.mass = 2.0f;
-    simplePoint.x = 0;
-    simplePoint.y = 0;
+    float redColor[3] = {1.0f, 0, 0};
+    Point simplePoint = create_point(0, 0, 1.0f, 0, 2.0f, 10.0f, redColor);
 
     while (!glfwWindowShouldClose(window))
     {
+        double frame_start = glfwGetTime();
+
         glfwPollEvents();
         nk_glfw3_new_frame(&glfw);
 
@@ -99,11 +104,14 @@ int main()
         int framebuffer_width;
         int framebuffer_height;
         glfwGetFramebufferSize(window, &framebuffer_width, &framebuffer_height);
-        glViewport(0, 0, framebuffer_width, framebuffer_height);
+
+        setup2D(&framebuffer_width, &framebuffer_height);
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         if (is_running)
         {
+            // Apply all physics here
             applyPhysics(&simplePoint);
         }
         // Draw simulation geometry here (3D cubes, particle grids, fields, etc.).
@@ -115,6 +123,8 @@ int main()
         glEnable(GL_DEPTH_TEST);
 
         glfwSwapBuffers(window);
+
+        fps_frame_control(frame_start, target_frame_time, true);
     }
 
     nk_glfw3_shutdown(&glfw);
