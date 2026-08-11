@@ -89,10 +89,6 @@ int main()
             {
                 is_running = !is_running;
             }
-
-            // Speed slider
-            nk_layout_row_dynamic(ctx, 25, 1);
-            nk_property_float(ctx, "Sim Speed:", 0.1f, &sim_speed, 10.0f, 0.1f, 0.05f);
         }
         nk_end(ctx);
 
@@ -108,7 +104,7 @@ int main()
         if (is_running)
         {
             // Apply all physics here
-            applyPhysics(&simplePoint);
+            applyPhysics(&simplePoint, 1);
         }
         // Draw simulation geometry here (3D cubes, particle grids, fields, etc.).
         drawnFrame(&simplePoint);

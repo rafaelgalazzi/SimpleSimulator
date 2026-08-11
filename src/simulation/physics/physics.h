@@ -3,6 +3,8 @@
 
 #include "../entity/entity.h"
 
-void applyPhysics(Point *points);
+void applyPhysics(Point *points, size_t point_amount);
+void updatePosition(Point *point);
+void applyBoundaries(Point *point);
 
 #endif
