@@ -16,4 +16,6 @@ typedef struct Point
 
 Point create_point(float x, float y, float vx, float vy, float mass, float diameter, float color[3]);
 
+void create_many_points(Point *points, size_t point_amount);
+
 #endif

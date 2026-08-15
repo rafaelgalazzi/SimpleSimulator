@@ -7,6 +7,6 @@ void setup2D(int *width, int *height);
 
 void drawnPoint(Point *point);
 
-void drawnFrame(Point *points);
+void drawnFrame(Point *points, size_t point_amount);
 
 #endif

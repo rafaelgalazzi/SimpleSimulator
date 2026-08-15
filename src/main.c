@@ -64,8 +64,16 @@ int main()
     int is_running = 0;
 
     // Setup particles
-    float redColor[3] = {1.0f, 0, 0};
-    Point simplePoint = create_point(0, 0, 1.0f, 1.0f, 2.0f, 10.0f, redColor);
+    size_t point_amount = 1000;
+    Point *points = malloc(point_amount * sizeof(Point));
+
+    if (!points)
+    {
+        printf("Error while allocating memory for points");
+        return 1;
+    }
+
+    create_many_points(points, point_amount);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -104,10 +112,10 @@ int main()
         if (is_running)
         {
             // Apply all physics here
-            applyPhysics(&simplePoint, 1);
+            applyPhysics(points, point_amount);
         }
         // Draw simulation geometry here (3D cubes, particle grids, fields, etc.).
-        drawnFrame(&simplePoint);
+        drawnFrame(points, point_amount);
 
         /* --- 5. RENDER THE GUI OVERLAY --- */
         glDisable(GL_DEPTH_TEST); // Keep the UI above the 3D scene.
@@ -122,5 +130,7 @@ int main()
     nk_glfw3_shutdown(&glfw);
     glfwDestroyWindow(window);
     glfwTerminate();
+
+    free(points);
     return 0;
 }

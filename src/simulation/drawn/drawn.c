@@ -29,7 +29,10 @@ void drawnPoint(Point *point)
     glEnd();
 }
 
-void drawnFrame(Point *point)
+void drawnFrame(Point *point, size_t point_amount)
 {
-    drawnPoint(point);
+    for (size_t i = 0; i < point_amount; i++)
+    {
+        drawnPoint((point + i));
+    }
 }
