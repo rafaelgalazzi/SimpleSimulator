@@ -64,7 +64,7 @@ int main()
     int is_running = 0;
 
     // Setup particles
-    size_t point_amount = 1000;
+    size_t point_amount = 500;
     Point *points = malloc(point_amount * sizeof(Point));
 
     if (!points)

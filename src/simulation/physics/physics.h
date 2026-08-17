@@ -6,5 +6,6 @@
 void applyPhysics(Point *points, size_t point_amount);
 void updatePosition(Point *point);
 void applyBoundaries(Point *point);
+void apply_colision(Point *point1, Point *points, size_t point_amount, size_t current_index);
 
 #endif

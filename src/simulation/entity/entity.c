@@ -28,10 +28,10 @@ void create_many_points(Point *points, size_t point_amount)
         float half_y_screen = SCREEN_HEIGHT / 2;
         float x = randomRange(-half_x_screen, half_x_screen);
         float y = randomRange(-half_y_screen, half_y_screen);
-        float vx = randomRange(-10.0f, 10.0f);
-        float vy = randomRange(-10.0f, 10.0f);
-        float mass = randomRange(1.0f, 10.0f);
-        float diameter = randomRange(1.0f, 10.0f);
+        float vx = randomRange(-1.0f, 1.0f);
+        float vy = randomRange(-1.0f, 1.0f);
+        float mass = randomRange(1.0f, 2.0f);
+        float diameter = randomRange(10.0f, 50.0f);
 
         float color[3] = {
             randomRange(0.0f, 1.0f),
