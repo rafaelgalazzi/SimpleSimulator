@@ -1,3 +1,4 @@
+#include <math.h>
 #include "physics.h"
 #include "../config/config.h"
 
@@ -33,32 +34,51 @@ void applyBoundaries(Point *point)
     }
 }
 
-
 // Need to fix this function
 void apply_colision(Point *point1, Point *points, size_t point_amount, size_t current_index)
 {
-    float inverse_point1_mass = 1 / point1->mass;
     for (size_t j = current_index + 1; j < point_amount; j++)
     {
         Point *point2 = (points + j);
-        float inverse_point2_mass = 1 / point2->mass;
 
-        float combined_radius_square = ((point1->diameter / 2) + (point2->diameter / 2)) * ((point1->diameter / 2) + (point2->diameter / 2));
-        float x_distance_square = (point1->x - point2->x) * (point1->x - point2->x);
-        float y_distance_square = (point1->y - point2->y) * (point1->y - point2->y);
-        if (combined_radius_square < (x_distance_square + y_distance_square))
+        float dx = point1->x - point2->x;
+        float dy = point1->y - point2->y;
+        float x_distance_square = dx * dx;
+        float y_distance_square = dy * dy;
+        float distSq = x_distance_square + y_distance_square;
+
+        float r1 = point1->diameter / 2.0f;
+        float r2 = point2->diameter / 2.0f;
+
+        float combined_radius_square = (r1 + r2) * (r1 + r2);
+
+        if (distSq < combined_radius_square)
         {
-            continue;
+            float dist = sqrtf(distSq);
+            float nx = dx / dist;
+            float ny = dy / dist;
+
+            float vn1 = point1->vx * nx + point1->vy * ny;
+            float vn2 = point2->vx * nx + point2->vy * ny;
+
+            float vt1x = point1->vx - vn1 * nx;
+            float vt1y = point1->vy - vn1 * ny;
+
+            float vt2x = point2->vx - vn2 * nx;
+            float vt2y = point2->vy - vn2 * ny;
+
+            float m1 = point1->mass;
+            float m2 = point2->mass;
+            float total_mass = m1 + m2;
+
+            float new_vn1 = ((m1 - m2) * vn1 + 2.0f * m2 * vn2) / total_mass;
+            float new_vn2 = ((m2 - m1) * vn2 + 2.0f * m1 * vn1) / total_mass;
+
+            point1->vx = vt1x + new_vn1 * nx;
+            point1->vy = vt1y + new_vn1 * ny;
+
+            point2->vx = vt2x + new_vn2 * nx;
+            point2->vy = vt2y + new_vn2 * ny;
         }
-
-        float total_mass = point1->mass + point2->mass;
-        float total_vx = point1->vx + point2->vx;
-        float total_vy = point1->vy + point2->vy;
-
-        point1->vx = (total_mass * total_vx - point2->mass * point2->vx) * inverse_point1_mass;
-        point1->vy = (total_mass * total_vy - point2->mass * point2->vy) * inverse_point1_mass;
-
-        point2->vx = (total_mass * total_vx - point1->mass * point1->vx) * inverse_point2_mass;
-        point2->vy = (total_mass * total_vy - point1->mass * point1->vy) * inverse_point2_mass;
     }
 }

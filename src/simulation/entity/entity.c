@@ -31,7 +31,7 @@ void create_many_points(Point *points, size_t point_amount)
         float vx = randomRange(-1.0f, 1.0f);
         float vy = randomRange(-1.0f, 1.0f);
         float mass = randomRange(1.0f, 2.0f);
-        float diameter = randomRange(10.0f, 50.0f);
+        float diameter = randomRange(1.0f, 5.0f);
 
         float color[3] = {
             randomRange(0.0f, 1.0f),
