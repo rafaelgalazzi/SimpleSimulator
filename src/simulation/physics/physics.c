@@ -7,7 +7,7 @@ void applyPhysics(Point *points, size_t point_amount)
 {
     long long i;
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (i = 0; i < point_amount; i++)
     {
         Point *point_aux = points + i;
