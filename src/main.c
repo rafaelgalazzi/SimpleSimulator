@@ -64,7 +64,7 @@ int main()
     int is_running = 0;
 
     // Setup particles
-    size_t point_amount = 500;
+    size_t point_amount = 10000;
     Point *points = malloc(point_amount * sizeof(Point));
 
     if (!points)
@@ -74,6 +74,10 @@ int main()
     }
 
     create_many_points(points, point_amount);
+
+    double current_fps = 0;
+    char fps_string[50] = "";
+    int ticks_counter = 0;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -97,6 +101,9 @@ int main()
             {
                 is_running = !is_running;
             }
+            snprintf(fps_string, sizeof(fps_string), "%.0f", current_fps);
+            nk_layout_row_dynamic(ctx, 40, 1);
+            nk_label(ctx, fps_string, NK_TEXT_LEFT);
         }
         nk_end(ctx);
 
@@ -124,7 +131,15 @@ int main()
 
         glfwSwapBuffers(window);
 
-        fps_frame_control(frame_start, target_frame_time, true);
+        fps_frame_control(frame_start, target_frame_time, false);
+
+        if (ticks_counter >= 60)
+        {
+            ticks_counter = 0;
+            current_fps = 1 / (glfwGetTime() - frame_start);
+            continue;
+        }
+        ticks_counter++;
     }
 
     nk_glfw3_shutdown(&glfw);

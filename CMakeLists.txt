@@ -4,6 +4,7 @@ project(SimpleSimulator C)
 
 # Use the native OpenGL implementation on Windows, Linux, and macOS.
 find_package(OpenGL REQUIRED)
+find_package(OpenMP REQUIRED)
 # Build the application with the local Nuklear headers and GLFW's GLAD loader.
 
 add_executable(simulator 
@@ -29,5 +30,6 @@ target_include_directories(glad PUBLIC include)
 target_link_libraries(simulator PRIVATE 
     OpenGL::GL
     glad
+    OpenMP::OpenMP_C
     ${CMAKE_CURRENT_SOURCE_DIR}/include/lib-vc2026/glfw3.lib
 )

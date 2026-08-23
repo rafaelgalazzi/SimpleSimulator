@@ -1,15 +1,23 @@
 #include <math.h>
+#include <omp.h>
 #include "physics.h"
 #include "../config/config.h"
 
 void applyPhysics(Point *points, size_t point_amount)
 {
-    for (size_t i = 0; i < point_amount; i++)
-    {
-        // Applying physics for every particle
-        Point *point_aux = (points + i);
+    long long i;
 
-        apply_colision(point_aux, points, point_amount, i);
+#pragma omp parallel for
+    for (i = 0; i < point_amount; i++)
+    {
+        Point *point_aux = points + i;
+
+        apply_colision(
+            point_aux,
+            points,
+            point_amount,
+            (size_t)i);
+
         applyBoundaries(point_aux);
         updatePosition(point_aux);
     }
