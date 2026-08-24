@@ -8,6 +8,7 @@ void applyPhysics(Point *points, size_t point_amount, double *last_update_time)
     long long i;
     double time_now = glfwGetTime();
     double delta_time = time_now - *last_update_time;
+    
     #pragma omp parallel for
     for (i = 0; i < point_amount; i++)
     {
@@ -48,6 +49,7 @@ void applyBoundaries(Point *point)
 // Need to fix this function
 void apply_colision(Point *point1, Point *points, size_t point_amount, size_t current_index)
 {
+
     for (size_t j = current_index + 1; j < point_amount; j++)
     {
         Point *point2 = (points + j);

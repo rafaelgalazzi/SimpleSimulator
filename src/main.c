@@ -133,16 +133,16 @@ int main()
 
         glfwSwapBuffers(window);
 
-        fps_frame_control(frame_start, target_frame_time, false);
+        fps_frame_control(frame_start, target_frame_time, true);
 
-        if (ticks_counter > 60)
+        if (ticks_counter >= 60)
         {
-            current_fps = 1 * ticks_counter / time_sum;
+            current_fps = ticks_counter / time_sum;
             ticks_counter = 0;
             time_sum = 0;
             continue;
         }
-        time_sum = time_sum + (glfwGetTime() - frame_start);
+        time_sum += glfwGetTime() - frame_start;
         ticks_counter++;
     }
 
