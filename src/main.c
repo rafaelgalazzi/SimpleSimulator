@@ -64,7 +64,7 @@ int main()
     int is_running = 0;
 
     // Setup particles
-    size_t point_amount = 10000;
+    size_t point_amount = 1000;
     Point *points = malloc(point_amount * sizeof(Point));
 
     if (!points)
@@ -78,6 +78,8 @@ int main()
     double current_fps = 0;
     char fps_string[50] = "";
     int ticks_counter = 0;
+    double last_update_time = 0;
+    double time_sum = 0;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -119,7 +121,7 @@ int main()
         if (is_running)
         {
             // Apply all physics here
-            applyPhysics(points, point_amount);
+            applyPhysics(points, point_amount, &last_update_time);
         }
         // Draw simulation geometry here (3D cubes, particle grids, fields, etc.).
         drawnFrame(points, point_amount);
@@ -133,12 +135,14 @@ int main()
 
         fps_frame_control(frame_start, target_frame_time, false);
 
-        if (ticks_counter >= 60)
+        if (ticks_counter > 60)
         {
+            current_fps = 1 * ticks_counter / time_sum;
             ticks_counter = 0;
-            current_fps = 1 / (glfwGetTime() - frame_start);
+            time_sum = 0;
             continue;
         }
+        time_sum = time_sum + (glfwGetTime() - frame_start);
         ticks_counter++;
     }
 

@@ -3,10 +3,11 @@
 #include "physics.h"
 #include "../config/config.h"
 
-void applyPhysics(Point *points, size_t point_amount)
+void applyPhysics(Point *points, size_t point_amount, double *last_update_time)
 {
     long long i;
-
+    double time_now = glfwGetTime();
+    double delta_time = time_now - *last_update_time;
     #pragma omp parallel for
     for (i = 0; i < point_amount; i++)
     {
@@ -19,14 +20,16 @@ void applyPhysics(Point *points, size_t point_amount)
             (size_t)i);
 
         applyBoundaries(point_aux);
-        updatePosition(point_aux);
+        updatePosition(point_aux, &delta_time);
     }
+    *last_update_time = time_now;
 }
 
-void updatePosition(Point *point)
+void updatePosition(Point *point, double *delta_time)
 {
-    point->x += point->vx;
-    point->y -= point->vy; // Subtract because the increasing in Y goes to the bottom
+
+    point->x += point->vx * (float)(*delta_time);
+    point->y -= point->vy * (float)(*delta_time); // Subtract because the increasing in Y goes to the bottom
 }
 
 void applyBoundaries(Point *point)
