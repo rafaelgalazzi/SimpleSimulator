@@ -35,7 +35,7 @@ void create_many_points(Point *points, size_t point_amount)
 
         float color[3] = {
             1.0f,
-            1.0f,
+            0,
             1.0f,
         };
 
