@@ -9,6 +9,7 @@ void applyPhysics(Point *points, size_t point_amount, double *last_update_time)
     double time_now = glfwGetTime();
     double delta_time = time_now - *last_update_time;
     
+    // #pragma omp parallel for num_threads(1)
     #pragma omp parallel for
     for (i = 0; i < point_amount; i++)
     {
