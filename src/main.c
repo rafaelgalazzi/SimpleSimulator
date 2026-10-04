@@ -44,7 +44,7 @@ int main()
         return 1;
     }
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
     if (!gladLoadGL(glfwGetProcAddress))
     {
         glfwDestroyWindow(window);
@@ -64,7 +64,7 @@ int main()
     int is_running = 0;
 
     // Setup particles
-    size_t point_amount = 1000;
+    size_t point_amount = 2000;
     Point *points = malloc(point_amount * sizeof(Point));
 
     if (!points)
@@ -133,17 +133,19 @@ int main()
 
         glfwSwapBuffers(window);
 
-        fps_frame_control(frame_start, target_frame_time, true);
+        double last_frame_time;
 
+        fps_frame_control(frame_start, target_frame_time, &last_frame_time, true);
+
+        time_sum += last_frame_time - frame_start;
+        ticks_counter++;
         if (ticks_counter >= 60)
         {
-            current_fps = ticks_counter / time_sum;
+            current_fps = (double)ticks_counter / time_sum;
             ticks_counter = 0;
             time_sum = 0;
             continue;
         }
-        time_sum += glfwGetTime() - frame_start;
-        ticks_counter++;
     }
 
     nk_glfw3_shutdown(&glfw);

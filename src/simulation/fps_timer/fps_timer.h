@@ -9,6 +9,6 @@
 #endif
 
 void sleep_in_milliseconds(double time);
-void fps_frame_control(double start_frame_time, double target_frame_time, bool is_enable);
+void fps_frame_control(double start_frame_time, double target_frame_time, double * lastFrameTime, bool is_enable);
 
 #endif
