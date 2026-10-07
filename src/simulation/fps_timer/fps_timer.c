@@ -1,4 +1,5 @@
 #include "fps_timer.h"
+#include "../timer/timer.h"
 #include <GLFW/glfw3.h>
 #ifndef _WIN32
 #include <errno.h>
@@ -42,7 +43,7 @@ void sleep_in_milliseconds(double time_in_milliseconds)
 // FPS limiter function
 void fps_frame_control(double start_frame_time, double target_frame_time, double *lastFrameTime, bool is_enable)
 {
-    double now = glfwGetTime();
+    double now = get_real_application_time();
     if (is_enable && target_frame_time > 0.0)
     {
         const double deadline = start_frame_time + target_frame_time;
@@ -56,7 +57,7 @@ void fps_frame_control(double start_frame_time, double target_frame_time, double
 
         while (now < deadline)
         {
-            now = glfwGetTime();
+            now = get_real_application_time();
         }
     }
     if (lastFrameTime)

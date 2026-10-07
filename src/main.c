@@ -24,6 +24,7 @@
 #include "./simulation/entity/entity.h"
 #include "./simulation/fps_timer/fps_timer.h"
 #include "./simulation/config/config.h"
+#include "./simulation/timer/timer.h"
 
 int main()
 {
@@ -64,7 +65,7 @@ int main()
     int is_running = 0;
 
     // Setup particles
-    size_t point_amount = 2000;
+    size_t point_amount = 5000;
     Point *points = malloc(point_amount * sizeof(Point));
 
     if (!points)
@@ -83,7 +84,7 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
-        double frame_start = glfwGetTime();
+        double frame_start = get_real_application_time();
 
         glfwPollEvents();
         nk_glfw3_new_frame(&glfw);
@@ -101,6 +102,7 @@ int main()
             nk_layout_row_dynamic(ctx, 30, 1);
             if (nk_button_label(ctx, is_running ? "Pause Sim" : "Start Sim"))
             {
+                pause_application_time();
                 is_running = !is_running;
             }
             snprintf(fps_string, sizeof(fps_string), "%.0f", current_fps);

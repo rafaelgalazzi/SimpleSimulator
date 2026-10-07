@@ -2,15 +2,16 @@
 #include <omp.h>
 #include "physics.h"
 #include "../config/config.h"
+#include "../timer/timer.h"
 
 void applyPhysics(Point *points, size_t point_amount, double *last_update_time)
 {
     long long i;
-    double time_now = glfwGetTime();
+    double time_now = get_physics_application_time();
     double delta_time = time_now - *last_update_time;
-    
-    // #pragma omp parallel for num_threads(1)
-    #pragma omp parallel for
+
+// #pragma omp parallel for num_threads(1)
+#pragma omp parallel for
     for (i = 0; i < point_amount; i++)
     {
         Point *point_aux = points + i;

@@ -13,6 +13,7 @@ add_executable(simulator
     src/simulation/physics/physics.c
     src/simulation/fps_timer/fps_timer.c
     src/simulation/entity/entity.c
+    src/simulation/timer/timer.c
 )
 
 target_include_directories(simulator PRIVATE 
